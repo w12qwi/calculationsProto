@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package calculations;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/w12qwi/calculationsProto/gen";
+
+message Calculation {
+  string id = 1;
+  double num_a = 2;
+  double num_b = 3;
+  string sign = 4;
+  double result = 5;
+  google.protobuf.Timestamp created_at = 6;
+}
+
+message GetCalculationRequest{
+  string id = 1;
+}
+
+message GetCalculationsRequest{
+  optional string sign = 1;
+  optional google.protobuf.Timestamp date = 2;
+  optional google.protobuf.Timestamp dateFrom = 3;
+  optional google.protobuf.Timestamp dateTo = 4;
+}
+
+message GetCalculationsResponse{
+  repeated  Calculation calculation = 1;
+}
+
+
+service CalculationsDataService {
+  rpc GetCalculation(GetCalculationRequest) returns (Calculation);
+
+  rpc GetCalculations(GetCalculationsRequest) returns (GetCalculationsResponse);
+
+  rpc GetAllCalculations(google.protobuf.Empty) returns (GetCalculationsResponse);
+}
+
