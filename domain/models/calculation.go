@@ -13,3 +13,5 @@ type Calculation struct {
 	Result    float64
 	CreatedAt time.Time
 }
+
+//
